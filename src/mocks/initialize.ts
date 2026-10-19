@@ -8,10 +8,7 @@ export function initializeMocks(): Promise<void> {
     process.env.NEXT_PUBLIC_ENABLE_MOCKS,
   );
 
-  if (
-    process.env.NODE_ENV !== "development" ||
-    process.env.NEXT_PUBLIC_ENABLE_MOCKS !== "true"
-  ) {
+  if (process.env.NEXT_PUBLIC_ENABLE_MOCKS !== "true") {
     console.log("[MSW] Mocks disabled; skipping initialization");
     return Promise.resolve();
   }
