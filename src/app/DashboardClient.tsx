@@ -15,7 +15,11 @@ import { useTransactions } from "@/features/transactions/hooks/useTransactions";
 import { useDebouncedValue } from "@/features/transactions/hooks/useDebouncedValue";
 import WorkspacePage from "@/features/workspace/WorkspacePage";
 import dynamic from "next/dynamic";
-
+import {
+  OverviewSkeleton,
+  TransactionsSkeleton,
+  AnalyticsExplorerSkeleton,
+} from "@/components/ui/DashboardSkeleton";
 const ChartLoading = () => (
   <div
     className="min-h-72 animate-pulse rounded-xl border border-slate-200 bg-white"
@@ -180,9 +184,7 @@ export default function Home() {
             {isOverview ? (
               <>
                 {overviewQuery.isPending ? (
-                  <div className="rounded-xl border border-slate-200 bg-white p-8 text-sm text-slate-500">
-                    Loading analytics...
-                  </div>
+                  <OverviewSkeleton />
                 ) : overviewQuery.isError ? (
                   <div className="rounded-xl border border-red-200 bg-white p-8">
                     <h2 className="font-semibold text-red-600">
@@ -263,18 +265,14 @@ export default function Home() {
                         onViewAll={() => setActivePage("Analytics Explorer")}
                       />
                     ) : (
-                      <div className="rounded-xl border border-slate-200 bg-white p-8 text-sm text-slate-500">
-                        Loading transactions...
-                      </div>
+                      <TransactionsSkeleton />
                     )}
                   </>
                 )}
               </>
             ) : activePage === "Analytics Explorer" ? (
               overviewQuery.isPending ? (
-                <div className="rounded-xl border border-slate-200 bg-white p-8 text-sm text-slate-500">
-                  Loading analytics explorer...
-                </div>
+                <AnalyticsExplorerSkeleton />
               ) : overviewQuery.isError ? (
                 <div className="rounded-xl border border-red-200 bg-white p-8">
                   <h2 className="font-semibold text-red-600">
